@@ -1,0 +1,44 @@
+{{ define "content" }}
+<section class="hero">
+    <div class="hero-content">
+        <h1 class="hero-title">Актуальные вопросы судебной медицины и права</h1>
+        <p class="hero-subtitle">
+            Публикуем сборники статей, поддерживаем авторов и обеспечиваем открытый доступ к материалам учреждения.
+        </p>
+        <div class="hero-actions">
+            <a href="/collections" class="btn btn-ghost">Перейти к сборникам</a>
+        </div>
+    </div>
+</section>
+
+<section style="display:grid; gap:18px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); margin-top:18px">
+    <article class="card">
+        <div class="card-body">
+            <h2 class="card-title">О нас</h2>
+            <p class="card-desc" style="-webkit-line-clamp: unset">
+                Здесь публикуются сборники научных материалов Государственного учреждения «РБСМЭ МЗ РТ».
+                Платформа упорядочивает выпуски по годам и номерам, а также даёт быстрый доступ к PDF.
+            </p>
+        </div>
+    </article>
+
+    <article class="card">
+        <div class="card-body">
+            <h2 class="card-title">Как подать статью</h2>
+            <p class="card-desc" style="-webkit-line-clamp: unset">
+                Перейдите в раздел «Подача статьи» в верхнем меню. Укажите автора, название, e-mail и прикрепите файл
+                (DOCX). После отправки вы получите подтверждение, а редактор увидит заявку в админ-панели.
+            </p>
+        </div>
+    </article>
+
+    <article class="card">
+        <div class="card-body">
+            <h2 class="card-title">Контакты редакции</h2>
+            <p class="card-desc" style="-webkit-line-clamp: unset">
+                По всем вопросам, касающимся издания сборника статей, обращаться к Морозюк Нине Владимировне, +7 (843) 273-91-24 NinaMorozuyk@tatar.ru
+            </p>
+        </div>
+    </article>
+</section>
+{{ end }}

@@ -1,0 +1,44 @@
+{{ define "content" }}
+<section class="hero hero--slim">
+  <div class="hero-content">
+    <h1 class="page-title">Подача статьи</h1>
+    <p class="muted">Автор, название, email и файл рукописи. Допустимые форматы: DOCX.</p>
+    <div class="hero-actions" style="margin-top:10px">
+      <a href="/static/docs/trebovaniya.pdf" class="btn btn-ghost" download>Требования</a>
+    </div>
+  </div>
+</section>
+
+<form id="articleForm" class="form" style="display:grid; gap:12px" enctype="multipart/form-data" method="post" action="/article">
+  <label>Автор
+    <input name="author" required style="width:100%; height:40px; padding:0 10px; border:1px solid var(--border); border-radius:10px">
+  </label>
+
+  <label>Название
+    <input name="title" required style="width:100%; height:40px; padding:0 10px; border:1px solid var(--border); border-radius:10px">
+  </label>
+
+  <label>Email
+    <input name="email" type="email" required style="width:100%; height:40px; padding:0 10px; border:1px solid var(--border); border-radius:10px">
+  </label>
+
+  <div id="drop" class="card-cover card-cover--placeholder" style="height:auto; padding:22px; text-align:center; border-radius:14px; cursor:pointer">
+    <div id="dropText">Перетащите файл сюда или нажмите для выбора (DOCX до 25 МБ)</div>
+    <div id="fileName" class="muted" style="margin-top:6px; display:none"></div>
+    <input id="file" name="file" type="file" accept=".pdf,.docx,.odt" required hidden>
+  </div>
+
+  <progress id="progress" value="0" max="100" style="width:100%; display:none"></progress>
+  <div id="percent" class="muted" style="display:none">0%</div>
+
+  <!-- алерты -->
+  <div id="alert" style="display:none; padding:10px 12px; border-radius:10px; margin-top:8px; border:1px solid transparent"></div>
+
+  <div style="display:flex; gap:8px">
+    <button id="submitBtn" type="submit" class="btn btn-primary">Отправить</button>
+    <a href="/" class="btn btn-ghost">Отмена</a>
+  </div>
+
+</form>
+<script src="/static/scripts/admin.js"></script>
+{{ end }}

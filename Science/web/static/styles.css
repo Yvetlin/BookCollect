@@ -1,0 +1,166 @@
+/* ===== Палитра (Light / Dark) ===== */
+:root{
+    --bg: #0f141a;
+    --surface: #ffffff;
+    --text: #0e1116;
+    --muted: #6b7280;
+    --primary: #274690;           /* тёмно-синий акцент */
+    --primary-contrast: #ffffff;
+    --border: #e6e8ee;
+    --ring: rgba(39, 70, 144, .25);
+    --shadow: 0 10px 30px rgba(2, 6, 23, .08);
+    --surface-soft: #f7f8fb;
+}
+
+@media (prefers-color-scheme: dark){
+    :root{
+        --bg: #0b1220;
+        --surface: #0f172a;
+        --text: #e5e7eb;
+        --muted: #9aa3b2;
+        --primary: #3b82f6;
+        --primary-contrast: #ffffff;
+        --border: #22314c;
+        --ring: rgba(59,130,246,.35);
+        --shadow: 0 10px 30px rgba(0,0,0,.35);
+        --surface-soft: #0b1220;
+    }
+}
+
+/* ===== База ===== */
+*{ box-sizing: border-box; }
+html,body{ height: 100%; }
+body {
+    margin: 0;
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans";
+    color: var(--text);
+    background:
+            radial-gradient(60% 60% at 15% -10%, rgba(39, 70, 144, .06), transparent 60%),
+            radial-gradient(40% 40% at 100% -10%, rgba(39, 70, 144, .05), transparent 60%),
+            var(--bg);
+    line-height: 1.55;
+}
+
+/* ===== Контейнер и страницы ===== */
+.container { width: min(1100px, 92%); margin-inline: auto; }
+.page { padding: 28px 0 64px; }
+.page-title{ margin: 0 0 12px; font-size: clamp(24px, 2.8vw, 32px); letter-spacing: -.3px; }
+.muted{ color: var(--muted); }
+
+/* ===== Навбар (если используешь) ===== */
+/* Навбар — делаем ссылки белыми, без подчёркивания и пожирнее */
+/* Шапка — принудительно в одну линию */
+.navbar{
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: saturate(180%) blur(8px);
+    background: color-mix(in oklab, var(--surface), transparent 8%);
+    border-bottom: 1px solid var(--border);
+    color: #fff;
+}
+.nav-inner{ display:flex; align-items:center; justify-content:space-between; gap: 16px; padding: 12px 0; }
+.nav-links{ display:flex; gap:18px; }
+.nav-actions{ display:flex; }
+.navbar .brand,
+.navbar .nav-link,
+.navbar .nav-link:link,
+.navbar .nav-link:visited{
+    color:#fff; text-decoration:none; font-weight:700;
+}
+.navbar .nav-link:hover{ opacity:.9; text-decoration:none; }
+
+
+/* ===== Hero ===== */
+.hero{
+    border-radius: 16px;
+    background: color-mix(in oklab, var(--surface), transparent 0%);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    padding: clamp(18px, 3vw, 28px);
+    margin-bottom: 20px;
+}
+.hero--slim{ padding: clamp(14px, 2.2vw, 22px); }
+.hero-content p{ margin: 6px 0 0; }
+
+/* ===== Кнопки ===== */
+.btn{
+    display:inline-flex; align-items:center; justify-content:center;
+    height: 40px; padding: 0 14px;
+    border-radius: 10px;
+    text-decoration:none;
+    border: 1px solid transparent;
+    transition: transform .08s ease, box-shadow .15s ease, background .2s ease, color .2s ease, border-color .2s ease;
+    font-weight: 600;
+}
+.btn:hover{ transform: translateY(-1px); box-shadow: var(--shadow); }
+
+.btn-primary{ background: var(--primary); color: var(--primary-contrast); }
+.btn-primary:hover{ filter: brightness(1.06); }
+
+.btn-ghost{
+    background: transparent; color: var(--text);
+    border-color: var(--border);
+}
+.btn-ghost:hover{ background: color-mix(in oklab, var(--surface), transparent 10%); }
+
+/* ===== Grid карточек ===== */
+.grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 18px;
+}
+
+/* ===== Карточка сборника ===== */
+.card{
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    display: flex; flex-direction: column; min-height: 100%;
+    transition: transform .15s ease, box-shadow .2s ease, border-color .2s ease;
+    will-change: transform;
+}
+.card:hover{ transform: translateY(-3px); border-color: color-mix(in oklab, var(--primary), var(--border) 85%); }
+
+.card-cover{
+    width: 100%; height: 180px; object-fit: cover; display:block;
+    background: var(--surface-soft);
+}
+.card-cover--placeholder{
+    display:grid; place-items:center; height:180px;
+    color: var(--muted); font-size: 14px;
+    background: linear-gradient(135deg, color-mix(in oklab, var(--surface), transparent 5%), color-mix(in oklab, var(--surface), transparent 14%));
+}
+
+.card-body{ padding: 14px 14px 16px; display:flex; flex-direction:column; gap:10px; }
+.card-title{ margin:0; font-size: 18px; letter-spacing: -.2px; }
+
+.meta{ display:flex; gap:8px; flex-wrap:wrap; }
+.meta-chip{
+    font-size: 12px; color: var(--muted);
+    background: color-mix(in oklab, var(--surface), transparent 8%);
+    border: 1px solid var(--border);
+    padding: 4px 8px; border-radius: 999px;
+}
+
+.card-desc{
+    margin:0; color: var(--muted); font-size: 14.5px;
+    display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+}
+
+.card-actions{ margin-top: 6px; display:flex; gap:8px; flex-wrap:wrap; }
+
+/* ===== Пустое состояние ===== */
+.empty-state{
+    text-align:center; border: 1px dashed var(--border); border-radius: 14px;
+    padding: 40px 16px; background: color-mix(in oklab, var(--surface), transparent 0%);
+}
+.empty-icon{ font-size: 42px; margin-bottom: 8px; }
+
+/* ===== Анимации появления ===== */
+.reveal{ opacity: 0; transform: translateY(18px) scale(.98); transition: opacity .5s ease, transform .5s ease; }
+.reveal.is-visible{ opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce){
+    .reveal,.btn,.card{ transition: none !important; }
+}

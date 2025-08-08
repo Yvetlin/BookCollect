@@ -1,0 +1,42 @@
+{{ define "content" }}
+<nav class="muted" style="margin-bottom:12px; font-size:14px">
+    <a href="/" class="muted">Главная</a> → <a href="/collections" class="muted">Сборники</a> → <span>{{ .Collection.Title }}</span>
+</nav>
+
+<section class="hero">
+    <div class="hero-content">
+        <h1 class="page-title">{{ .Collection.Title }}</h1>
+        <div class="meta" style="margin:8px 0 0">
+            {{ if .Collection.ReleaseYear }}<span class="meta-chip">Год: {{ .Collection.ReleaseYear }}</span>{{ end }}
+            {{ if .Collection.ReleaseNumber }}<span class="meta-chip">№ {{ .Collection.ReleaseNumber }}</span>{{ end }}
+        </div>
+    </div>
+</section>
+
+<div class="collection-body" style="display:grid; grid-template-columns: 300px 1fr; gap:22px; align-items:start">
+    <div>
+        {{ if .Collection.CoverImage }}
+        <img src="{{ .Collection.CoverImage }}" alt="Обложка: {{ .Collection.Title }}" style="width:100%; height:auto; border-radius:14px; border:1px solid var(--border); box-shadow: var(--shadow)" />
+        {{ else }}
+        <div class="card-cover card-cover--placeholder" style="border-radius:14px; border:1px solid var(--border)">Нет обложки</div>
+        {{ end }}
+
+        <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:12px">
+            {{ if .Collection.PublicationLink }}
+            <a class="btn btn-ghost" href="{{ .Collection.PublicationLink }}" target="_blank">Публикация</a>
+            {{ end }}
+            {{ if .Collection.PDFPath }}
+            <a class="btn btn-primary" href="{{ .Collection.PDFPath }}" download>Скачать PDF</a>
+            {{ end }}
+        </div>
+    </div>
+
+    <article>
+        {{ if .Collection.Description }}
+        <p style="white-space:pre-wrap; margin-top:0">{{ .Collection.Description }}</p>
+        {{ else }}
+        <p class="muted">Описание пока не добавлено.</p>
+        {{ end }}
+    </article>
+</div>
+{{ end }}

@@ -1,0 +1,45 @@
+{{ define "base" }}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ .Title }}</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+<header class="navbar">
+    <div class="container nav-inner">
+        <a href="/" class="brand">Главная</a>
+
+        <nav class="nav-links">
+            <a href="/collections" class="nav-link">Сборники</a>
+            <a href="/article" class="nav-link">Подача статьи</a>
+        </nav>
+
+        <div class="nav-actions">
+            {{ if .IsAdmin }}
+            <a href="/admin/panel/collections" class="btn btn-primary">Админ-панель</a>
+            <form method="post" action="/admin/logout" style="display:inline">
+                <button class="btn btn-ghost" style="margin-left:8px">Выйти</button>
+            </form>
+            {{ else }}
+            <a href="/admin/login" class="btn btn-primary">Вход администратора</a>
+            {{ end }}
+        </div>
+    </div>
+</header>
+
+<main class="container page">
+    {{ template "content" . }}
+</main>
+
+<footer class="footer">
+    <div class="container footer-inner">
+        <span>© {{ .Year }} ГАУЗ "РБСМЭ МЗ РТ"</span>
+        <span class="muted">Научный сайт для публикации сборников.</span>
+    </div>
+</footer>
+</body>
+</html>
+{{ end }}

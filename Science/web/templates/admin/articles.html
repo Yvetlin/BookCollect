@@ -1,0 +1,71 @@
+{{ define "content" }}
+<section class="hero hero--slim">
+    <div class="hero-content">
+        <h1 class="page-title">Админ · Заявки</h1>
+        <p class="muted">Просмотр, скачивание и удаление заявок.</p>
+    </div>
+</section>
+
+<div style="display:flex; gap:8px; margin-bottom:12px">
+    <a href="/admin/panel/collections" class="btn btn-ghost">Сборники</a>
+</div>
+
+<table id="tbl" style="width:100%; border-collapse:collapse; border:1px solid var(--border)">
+    <thead>
+    <tr style="background: color-mix(in oklab, var(--surface), transparent 6%)">
+        <th style="text-align:left; padding:8px; border-bottom:1px solid var(--border)">ID</th>
+        <th style="text-align:left; padding:8px; border-bottom:1px solid var(--border)">Автор</th>
+        <th style="text-align:left; padding:8px; border-bottom:1px solid var(--border)">Название</th>
+        <th style="text-align:left; padding:8px; border-bottom:1px solid var(--border)">Email</th>
+        <th style="text-align:left; padding:8px; border-bottom:1px solid var(--border)">Дата</th>
+        <th style="text-align:left; padding:8px; border-bottom:1px solid var(--border)">Действия</th>
+    </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+<script src="/static/scripts/admin.js"></script>
+<script>
+    (async () => {
+        const res = await fetch('/admin/articles', {credentials:'same-origin'});
+        console.log('GET /admin/articles ->', res.status, res.headers.get('content-type'));
+        const txt = await res.text();
+        console.log('BODY:', txt.slice(0, 300));
+    })();
+</script>
+
+<script>
+    // ====== ENDPOINTS (проверь пути под твой API) ======
+    window.ADMIN_CFG = {
+        listArticles:   '/admin/articles',                 // GET JSON список
+        downloadFile:   (id)=> `/admin/articles/${id}/download`, // GET файл
+        deleteArticle:  (id)=> `/admin/articles/${id}`,    // DELETE
+    };
+    window.initAdminArticles && window.initAdminArticles();
+</script>
+
+<script src="/static/scripts/admin.js?v=1"></script>
+<script>
+    // 1) Точные эндпоинты (множественное число, как в main.go)
+    window.ADMIN_CFG = {
+        listArticles:   '/admin/articles',
+        downloadFile:   (id)=> `/admin/articles/${id}/download`,
+        deleteArticle:  (id)=> `/admin/articles/${id}`,
+    };
+
+    // 2) Диагностика — покажет в консоли, что реально возвращает сервер
+    async function ping() {
+        const res = await fetch(window.ADMIN_CFG.listArticles, { credentials:'same-origin' });
+        console.log('GET', window.ADMIN_CFG.listArticles, '->', res.status, res.headers.get('content-type'));
+        const body = await res.text();
+        console.log('BODY PREVIEW:', body.slice(0, 200));
+    }
+
+    // 3) Надёжный запуск после готовности DOM + явный вызов init
+    window.addEventListener('DOMContentLoaded', async () => {
+        try { await ping(); } catch(e){ console.error(e); }
+        if (window.initAdminArticles) window.initAdminArticles();
+    });
+</script>
+
+{{ end }}
